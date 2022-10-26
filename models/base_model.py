@@ -22,7 +22,7 @@ class BaseModel:
         to_dict(self): returns the dictionary values of the instance obj
 
     """
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Public instance attributes initialization
 
         Args:
@@ -30,11 +30,19 @@ class BaseModel:
             **kwargs(dict): attribute values
 
         """
-        self.name = "Kamal"
-        self.my_number = "11"
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if not kwargs:
+            self.name = ""
+            self.my_number = ""
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+        else:
+            self.name = kwargs['name']
+            self.my_number = kwargs['my_number']
+            self.id = kwargs['id']
+            D_TIME = "%Y-%m-%dT%H:%M:%S.%f"
+            self.created_at = datetime.strptime(kwargs['created_at'], D_TIME)
+            self.updated_at = datetime.strptime(kwargs['updated_at'], D_TIME)
 
     def __str__(self):
         """
