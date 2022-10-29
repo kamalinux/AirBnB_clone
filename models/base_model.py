@@ -32,19 +32,17 @@ class BaseModel:
 
         """
         if not kwargs:
-            self.name = ""
-            self.my_number = ""
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             storage.new(self)
         else:
-            self.name = kwargs['name']
-            self.my_number = kwargs['my_number']
-            self.id = kwargs['id']
             D_TIME = "%Y-%m-%dT%H:%M:%S.%f"
-            self.created_at = datetime.strptime(kwargs['created_at'], D_TIME)
-            self.updated_at = datetime.strptime(kwargs['updated_at'], D_TIME)
+            for key, value in kwargs.items():
+                if key == 'created_at' or key == 'updated_at':
+                    value = datetime.strptime(kwargs[key], D_TIME)
+                if key != '__class__':
+                    setattr(self, key, value)
 
     def __str__(self):
         """
