@@ -2,6 +2,7 @@
 """ Entry point of the command interpreter """
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import ModelClasses
 from models import storage
 
@@ -23,7 +24,8 @@ class HBNBCommand(cmd.Cmd):
         elif type_model not in ModelClasses:
             print("** class doesn't exist **")
         else:
-            my_model = BaseModel()
+            dct = {'BaseModel': BaseModel, 'User': User}
+            my_model = dct[type_model]()
             print(my_model.id)
             my_model.save()
 
