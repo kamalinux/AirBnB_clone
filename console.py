@@ -22,6 +22,10 @@ class HBNBCommand(cmd.Cmd):
         """Prints help command description"""
         print("Provides description of a given command")
 
+    def emptyline(self):
+        """do nothing when empty line"""
+        pass
+
     def do_create(self, type_model):
         """Creates an instance according to a given class"""
 
