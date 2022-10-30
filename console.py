@@ -15,19 +15,19 @@ class HBNBCommand(cmd.Cmd):
     """Command processor"""
 
     prompt = "(hbnb) "
-    ModelClasses = {"BaseModel", "State", "City",
-                    "Amenity", "Place", "Review", "User"}
+    classes = {"BaseModel", "State", "City",
+               "Amenity", "Place", "Review", "User"}
 
     def help_help(self):
-        """ Prints help command description """
+        """Prints help command description"""
         print("Provides description of a given command")
 
     def do_create(self, type_model):
-        """ Creates an instance according to a given class """
+        """Creates an instance according to a given class"""
 
         if not type_model:
             print("** class name missing **")
-        elif type_model not in HBNBCommand.ModelClasses:
+        elif type_model not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
             dct = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
@@ -38,7 +38,7 @@ class HBNBCommand(cmd.Cmd):
             my_model.save()
 
     def do_show(self, arg):
-        """ Shows string representation of an instance passed """
+        """Shows string representation of an instance passed"""
 
         if not arg:
             print("** class name missing **")
@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split()
 
-        if args[0] not in HBNBCommand.ModelClasses:
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -61,7 +61,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_destroy(self, arg):
-        """ Deletes an instance passed """
+        """Deletes an instance passed"""
 
         if not arg:
             print("** class name missing **")
@@ -69,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split()
 
-        if args[0] not in HBNBCommand.ModelClasses:
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -86,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_all(self, arg):
-        """ Prints string represention of all instances of a given class """
+        """Prints string represention of all instances of a given class"""
 
         if not arg:
             print("** class name missing **")
@@ -94,7 +94,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split()
 
-        if args[0] not in HBNBCommand.ModelClasses:
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
             all_objs = storage.all()
@@ -106,7 +106,7 @@ class HBNBCommand(cmd.Cmd):
             print(list_instances)
 
     def do_update(self, arg):
-        """ Updates an instance based on the class name and id """
+        """Updates an instance based on the class name and id"""
 
         if not arg:
             print("** class name missing **")
@@ -119,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
                 args[i] = args[i].replace('"', "")
             args[i] = args[i].replace("'", "")
 
-        if args[0] not in HBNBCommand.ModelClasses:
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -138,6 +138,17 @@ class HBNBCommand(cmd.Cmd):
                         storage.save()
                     return
             print("** no instance found **")
+
+    def do_count(self, line):
+        """Display count of instances specified"""
+        if line in HBNBCommand.classes:
+            count = 0
+            for key, objs in storage.all().items():
+                if line in key:
+                    count += 1
+            print(count)
+        else:
+            print("** class doesn't exist **")
 
     def do_quit(self, line):
         """Quit command to exit the program"""
