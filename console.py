@@ -8,7 +8,6 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-from models import ModelClasses
 from models import storage
 
 
@@ -16,6 +15,8 @@ class HBNBCommand(cmd.Cmd):
     """Command processor"""
 
     prompt = "(hbnb) "
+    ModelClasses = {"BaseModel", "State", "City",
+                    "Amenity", "Place", "Review", "User"}
 
     def help_help(self):
         """ Prints help command description """
@@ -26,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
 
         if not type_model:
             print("** class name missing **")
-        elif type_model not in ModelClasses:
+        elif type_model not in HBNBCommand.ModelClasses:
             print("** class doesn't exist **")
         else:
             dct = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
@@ -45,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split()
 
-        if args[0] not in ModelClasses:
+        if args[0] not in HBNBCommand.ModelClasses:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -68,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split()
 
-        if args[0] not in ModelClasses:
+        if args[0] not in HBNBCommand.ModelClasses:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -93,7 +94,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split()
 
-        if args[0] not in ModelClasses:
+        if args[0] not in HBNBCommand.ModelClasses:
             print("** class doesn't exist **")
         else:
             all_objs = storage.all()
@@ -118,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
                 args[i] = args[i].replace('"', "")
             args[i] = args[i].replace("'", "")
 
-        if args[0] not in ModelClasses:
+        if args[0] not in HBNBCommand.ModelClasses:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
