@@ -163,5 +163,10 @@ class HBNBCommand(cmd.Cmd):
         return True
 
 
+def parse(line):
+    """Helper method to parse user typed input"""
+    return tuple(line.split())
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
