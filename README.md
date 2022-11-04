@@ -121,7 +121,7 @@ bb4f4b81-7757-460b-9263-743c9ea6fef6
 (hbnb) show User
 ** instance id missing **
 (hbnb)
-
+$
 ```
 
 ### Authors
