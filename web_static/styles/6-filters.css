@@ -22,7 +22,7 @@ section.filters button:hover {
     opacity: 0.9;
 }
 
-.locations, .amenities {
+.locations, section.filters .amenities {
     height: 100%;
     width: 25%;
     float: left;
